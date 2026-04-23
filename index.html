@@ -125,12 +125,20 @@
   .mock-kpi .v{transition:color .3s ease}
   .mock-kpi .v.ticked{color:var(--gold)}
 
-  /* Progress bar slow grow (subtle) */
-  @keyframes progressCreep{
-    0%{width:var(--start)}
-    100%{width:var(--end)}
+  /* Progress bar smooth growth — animated from JS */
+  .mock-row .progress span{transition:width 1.8s cubic-bezier(.25,.8,.3,1)}
+  .mock-row{opacity:0;animation:rowIn .5s ease-out forwards}
+  .mock-row.shipping{animation:rowShip .9s ease-in forwards}
+  @keyframes rowIn{
+    from{opacity:0;transform:translateX(-8px)}
+    to{opacity:1;transform:translateX(0)}
   }
-  .mock-row .progress span.anim{animation:progressCreep 18s linear infinite}
+  @keyframes rowShip{
+    0%{opacity:1;transform:translateX(0);background:transparent}
+    35%{background:rgba(154,110,58,.12)}
+    100%{opacity:0;transform:translateX(14px);background:transparent}
+  }
+  .mock-kpi .v.flash{color:var(--gold);transition:color .25s ease}
   .hero .eyebrow{font-size:13px;letter-spacing:.22em;color:var(--gold);font-weight:500;text-transform:uppercase;margin-bottom:28px;font-family:'Inter',sans-serif}
   .hero h1 em{font-style:italic;font-weight:500;color:var(--cream)}
   .hero h1 b{font-weight:700;color:var(--cream)}
@@ -256,7 +264,18 @@
   .dstage .dcircle{width:32px;height:32px;border:2px solid var(--line-dark);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:600;font-size:14px;color:var(--cream-50);background:var(--ink);transition:.2s}
   .dstage .dlabel{font-size:12px;color:var(--cream-50);font-weight:500;text-align:center;font-family:'Inter',sans-serif;letter-spacing:.02em}
   .dstage .dsub{font-size:10px;color:var(--cream-50);font-family:'JetBrains Mono',monospace;opacity:.6;text-align:center}
-  .dstage:hover .dcircle{border-color:var(--accent);color:var(--cream)}
+  .dstage{transition:transform .2s ease}
+  .dstage:hover{transform:translateY(-3px)}
+  .dstage:hover .dcircle{border-color:var(--accent);color:var(--cream);transform:scale(1.08);box-shadow:0 0 0 4px var(--accent-soft)}
+  .dstage .dcircle{transition:transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease}
+  .dstage.hint .dcircle{animation:stageHint 2s ease-in-out infinite}
+  @keyframes stageHint{
+    0%,100%{box-shadow:0 0 0 0 rgba(154,110,58,.6)}
+    50%{box-shadow:0 0 0 10px rgba(154,110,58,0)}
+  }
+  .demo-hint{position:absolute;top:-28px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--accent);font-family:'JetBrains Mono',monospace;letter-spacing:.08em;white-space:nowrap;opacity:0;transition:opacity .4s ease;pointer-events:none}
+  .demo-hint.show{opacity:1}
+  .dstage.hint{position:relative}
   .dstage.done .dcircle{background:var(--accent);border-color:var(--accent);color:var(--ink)}
   .dstage.active .dcircle{background:var(--cream);border-color:var(--cream);color:var(--ink);box-shadow:0 0 0 4px var(--accent-soft)}
   .dstage.active .dlabel{color:var(--cream)}
@@ -672,11 +691,7 @@
         </div>
         <div class="mock-section">
           <div class="mock-hdr"><span>File queue</span><span class="live">Agents live</span></div>
-          <div class="mock-row"><span class="file">24-10842</span><span class="progress"><span style="width:96%"></span></span><span class="stage done">Ready to sign</span></div>
-          <div class="mock-row"><span class="file">24-10843</span><span class="progress"><span style="width:72%"></span></span><span class="stage">Curative · 2d</span></div>
-          <div class="mock-row"><span class="file">24-10844</span><span class="progress"><span style="width:51%"></span></span><span class="stage">Examination</span></div>
-          <div class="mock-row"><span class="file">24-10845</span><span class="progress"><span style="width:34%"></span></span><span class="stage">Search</span></div>
-          <div class="mock-row"><span class="file">24-10846</span><span class="progress"><span style="width:18%"></span></span><span class="stage">Intake</span></div>
+          <div id="heroQueue"></div>
         </div>
         <div class="mock-agent-pills">
           <span>⬤ Search</span>
@@ -1997,24 +2012,93 @@
     setInterval(tickHero, 3400);
   }
 
-  // KPI subtle tick
-  function tickKpi(id, update){
-    const el = document.querySelector(id);
-    if (!el) return;
-    el.classList.add('ticked');
-    el.textContent = update;
-    setTimeout(() => el.classList.remove('ticked'), 500);
-  }
-  let clearedCount = 42;
+  // ===== LIVE HERO QUEUE — files advance, ship, new ones enter =====
+  let heroFiles = [
+    { id:'24-10842', progress:92, stage:'Curative' },
+    { id:'24-10843', progress:72, stage:'Curative' },
+    { id:'24-10844', progress:51, stage:'Examination' },
+    { id:'24-10845', progress:34, stage:'Search' },
+    { id:'24-10846', progress:18, stage:'Intake' }
+  ];
+  let nextFileId = 10847;
   let activeCount = 847;
-  setInterval(() => {
+  let clearedCount = 42;
+
+  function stageFromProgress(p){
+    if (p >= 98) return 'Ready to sign';
+    if (p >= 78) return 'Curative';
+    if (p >= 55) return 'Commitment';
+    if (p >= 30) return 'Examination';
+    if (p >= 15) return 'Search';
+    return 'Intake';
+  }
+
+  function renderHeroQueue(){
+    const q = document.getElementById('heroQueue');
+    if (!q) return;
+    q.innerHTML = heroFiles.map(f => {
+      const stageCls = f.progress >= 98 ? 'stage done' : 'stage';
+      return `<div class="mock-row" data-id="${f.id}">
+        <span class="file">${f.id}</span>
+        <span class="progress"><span style="width:${f.progress}%"></span></span>
+        <span class="${stageCls}">${f.stage}</span>
+      </div>`;
+    }).join('');
+  }
+
+  function updateHeroQueue(){
+    heroFiles.forEach(f => {
+      const row = document.querySelector(`.mock-row[data-id="${f.id}"]`);
+      if (!row) return;
+      const bar = row.querySelector('.progress > span');
+      if (bar) bar.style.width = `${f.progress}%`;
+      const stage = row.querySelector('.stage');
+      if (stage){
+        stage.textContent = f.stage;
+        stage.className = f.progress >= 98 ? 'stage done' : 'stage';
+      }
+    });
+  }
+
+  function updateKpi(idx, value, flash=false){
     const kpis = document.querySelectorAll('.mock-kpi .v');
-    if (kpis.length < 2) return;
-    clearedCount += 1;
-    kpis[1].innerHTML = `${clearedCount} <em>+${Math.round((clearedCount-36)/36*100)}%</em>`;
-    kpis[1].classList.add('ticked');
-    setTimeout(() => kpis[1].classList.remove('ticked'), 500);
-  }, 11000);
+    if (!kpis[idx]) return;
+    kpis[idx].innerHTML = value;
+    if (flash){
+      kpis[idx].classList.add('flash');
+      setTimeout(() => kpis[idx].classList.remove('flash'), 600);
+    }
+  }
+
+  function advanceHeroQueue(){
+    heroFiles.forEach(f => {
+      f.progress = Math.min(f.progress + 6 + Math.random() * 8, 100);
+      f.stage = stageFromProgress(f.progress);
+    });
+
+    if (heroFiles[0].progress >= 100 && Math.random() > 0.4){
+      const shipRow = document.querySelector(`.mock-row[data-id="${heroFiles[0].id}"]`);
+      if (shipRow) shipRow.classList.add('shipping');
+      // update KPI immediately when ship triggered
+      setTimeout(() => {
+        heroFiles.shift();
+        heroFiles.push({ id:`24-${nextFileId++}`, progress:4 + Math.random() * 8, stage:'Intake' });
+        clearedCount++;
+        activeCount++;
+        const pct = Math.round((clearedCount - 36) / 36 * 100);
+        updateKpi(0, `${activeCount}`, true);
+        updateKpi(1, `${clearedCount} <em>+${pct}%</em>`, true);
+        renderHeroQueue(); // full rebuild on ship
+      }, 800);
+    } else {
+      updateHeroQueue(); // in-place width updates — smooth, no flicker
+    }
+  }
+
+  if (document.getElementById('heroQueue')){
+    renderHeroQueue();
+    setTimeout(() => setInterval(advanceHeroQueue, 3200), 1400);
+  }
 
   // ===== INTERACTIVE DEMO =====
   const DEMO_STAGES = [
@@ -2754,8 +2838,29 @@
   if (document.getElementById('demoStages')) {
     renderDemoStages();
     renderDemoContent();
-    document.getElementById('playBtn').addEventListener('click', playDemo);
-    document.getElementById('nextBtn').addEventListener('click', () => { stopDemo(); nextDemoStage(); });
+
+    // First-interaction hint: pulse stage 1 until user clicks anything in the demo
+    let demoInteracted = false;
+    function applyHint(){
+      if (demoInteracted) return;
+      const first = document.querySelector('.dstage[data-idx="0"]');
+      if (first) first.classList.add('hint');
+    }
+    function clearHint(){
+      demoInteracted = true;
+      document.querySelectorAll('.dstage.hint').forEach(s => s.classList.remove('hint'));
+    }
+    // apply hint on scroll-into-view
+    const demoObs = new IntersectionObserver((entries) => {
+      entries.forEach(en => { if (en.isIntersecting) applyHint(); });
+    }, { threshold: 0.3 });
+    const demoEl = document.getElementById('demo');
+    if (demoEl) demoObs.observe(demoEl);
+
+    document.getElementById('playBtn').addEventListener('click', () => { clearHint(); playDemo(); });
+    document.getElementById('nextBtn').addEventListener('click', () => { clearHint(); stopDemo(); nextDemoStage(); });
+    // Re-apply hint removal when a stage is clicked (renderDemoStages rebuilds, so wire via delegation)
+    document.getElementById('demoStages').addEventListener('click', clearHint);
     document.querySelectorAll('.dtab').forEach(tab => {
       tab.addEventListener('click', (e) => {
         if (tab.classList.contains('active')) return;

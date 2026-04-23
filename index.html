@@ -196,6 +196,42 @@
   .outcomes .foot .src{font-size:12px;color:var(--cream-50);font-style:italic;font-family:'Fraunces',serif;max-width:560px;line-height:1.5}
   .outcomes .foot .cta{flex:0 0 auto}
 
+  /* ===== OUTCOMES · Harvey-style big numbers + visual task bars ===== */
+  .bignums{margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--line-dark);border:1px solid var(--line-dark);border-radius:8px;overflow:hidden}
+  @media (max-width:900px){ .bignums{grid-template-columns:1fr 1fr} }
+  @media (max-width:600px){ .bignums{grid-template-columns:1fr} }
+  .bignum{background:var(--ink);padding:44px 32px;display:flex;flex-direction:column;justify-content:flex-start;min-height:220px}
+  .bn-value{font-family:'Fraunces',serif;font-size:clamp(56px,7vw,88px);font-weight:700;color:var(--bg);line-height:.95;letter-spacing:-.03em;display:inline-flex;align-items:baseline;gap:4px}
+  .bn-unit{font-size:.38em;color:var(--accent);font-weight:600;margin-left:2px;font-style:italic}
+  .bn-label{margin-top:20px;font-size:13px;color:var(--bg);font-weight:500;letter-spacing:.02em}
+  .bn-sub{margin-top:6px;font-size:11px;color:var(--cream-50);font-family:'JetBrains Mono',monospace;letter-spacing:.04em;line-height:1.5}
+
+  .taskbars{margin-top:48px;background:rgba(245,242,234,.04);border:1px solid var(--line-dark);border-radius:8px;padding:36px 40px}
+  .tb-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid var(--line-dark)}
+  .tb-h-label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:600;font-family:'JetBrains Mono',monospace}
+  .tb-legend{display:flex;gap:20px;font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:.06em}
+  .tb-leg{display:inline-flex;align-items:center;gap:8px}
+  .tb-leg::before{content:"";width:12px;height:12px;border-radius:2px}
+  .tb-leg-before{color:var(--cream-50)}
+  .tb-leg-before::before{background:rgba(245,242,234,.18)}
+  .tb-leg-after{color:var(--accent)}
+  .tb-leg-after::before{background:var(--accent)}
+
+  .tb-row{display:grid;grid-template-columns:200px 1fr 110px;gap:24px;align-items:center;padding:14px 0;border-bottom:1px solid rgba(245,242,234,.06)}
+  .tb-row:last-child{border-bottom:none}
+  @media (max-width:900px){ .tb-row{grid-template-columns:1fr;row-gap:6px} .tb-delta{text-align:left} }
+  .tb-name{font-family:'Fraunces',serif;font-size:16px;font-weight:500;color:var(--bg);letter-spacing:-.01em}
+  .tb-bars{display:flex;flex-direction:column;gap:5px}
+  .tb-bar-wrap{width:100%;height:22px;background:rgba(245,242,234,.04);border-radius:2px;overflow:hidden;position:relative}
+  .tb-bar{height:100%;width:var(--w);display:flex;align-items:center;padding:0 10px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.04em;border-radius:2px;transition:width 1.4s cubic-bezier(.2,.7,.3,1);position:relative;min-width:0}
+  .tb-bar span{color:var(--bg);white-space:nowrap;position:absolute;left:10px;top:50%;transform:translateY(-50%)}
+  .tb-bar.tb-before{background:rgba(245,242,234,.18)}
+  .tb-bar.tb-before span{color:var(--cream-70)}
+  .tb-bar.tb-after{background:var(--accent)}
+  .tb-bar.tb-after span{color:var(--ink);font-weight:700}
+  .tb-delta{font-family:'Fraunces',serif;font-size:18px;color:var(--bg);text-align:right;letter-spacing:-.01em}
+  .tb-delta em{color:var(--accent);font-style:italic;font-weight:700;font-size:22px}
+
   /* ===== INTERACTIVE DEMO SECTION ===== */
   .demo-sec{background:var(--bg);padding:120px 0;border-top:1px solid var(--line-light);border-bottom:1px solid var(--line-light)}
   .demo-sec h2{max-width:720px;margin-top:16px}
@@ -592,11 +628,9 @@
   <div class="wrap">
     <a class="logo" href="#"><span>Roam</span><span class="slash">/</span><span style="font-style:italic;font-weight:500">title</span></a>
     <div class="nav-links">
-      <a href="#demo">See it work</a>
-      <a href="#transform">12-month view</a>
-      <a href="#who">Who it's for</a>
-      <a href="#offer">Commercial terms</a>
-      <a href="#vs">vs. alternatives</a>
+      <a href="#demo">Product</a>
+      <a href="#sec">Security</a>
+      <a href="#offer">Pricing</a>
     </div>
     <a class="btn btn-gold" href="#" onclick="openModal(event)">Request a pilot <span class="arr">→</span></a>
   </div>
@@ -605,9 +639,9 @@
 <!-- ===== HERO ===== -->
 <header class="hero">
   <div class="wrap inner">
-    <div class="eyebrow">The AI workforce for title &amp; escrow</div>
-    <h1><b>AI that</b> <em>closes title files.</em></h1>
-    <p class="hero-sub">Not a copilot. Not software to buy. An AI workforce that runs the back office — under your license, your underwriter, your office rules. Paid only on savings your controller verifies.</p>
+    <div class="eyebrow">Built for title owner-operators</div>
+    <h1><em>The AI workforce</em> <b>for title &amp; escrow.</b></h1>
+    <p class="hero-sub">Six agents that run your back office — search, commitment, curative, CD &amp; wire, escrow, post-close. Inside your existing stack. Under your license and your underwriter. Your examiners review and sign. You pay only on savings your controller verifies.</p>
     <p class="hero-meta">$0 upfront · 20% of verified savings · 90-day pilot · ALTA Best Practices 4.0 · SOC 2 audit in progress</p>
 
     <div class="hero-grid">
@@ -689,92 +723,105 @@
   </div>
 </section>
 
-<!-- ===== LIVE OUTCOMES STRIP (FROM FLOCK + PILOT DATA) ===== -->
+<!-- ===== OUTCOMES (Harvey-style: 4 giant numbers + visual task bars below) ===== -->
 <section class="outcomes" id="live">
   <div class="wrap">
     <div class="hdr">
-      <h2>Per-task benchmarks. <em>Before you spend a dollar.</em></h2>
-      <div class="meta">Projected from Roam's task-timing model — built from time-and-motion audits across mid-market title workflows. Re-baselined in your environment in week zero, before any fee lands. <span style="display:block;margin-top:8px;color:var(--gold);font-style:normal;font-weight:500">Sample numbers shown · your delta depends on state mix, asset type, office structure.</span></div>
+      <h2>Measurable results. <em>Before you spend a dollar.</em></h2>
+      <div class="meta">Modeled from time-and-motion audits of mid-market title workflows. Re-baselined in your environment in week zero, before any fee lands.</div>
     </div>
 
-    <!-- Total-TAT summary banner — the number the P&L cares about -->
-    <div style="margin-top:40px;margin-bottom:8px;padding:28px 32px;background:var(--navy-2);border-left:3px solid var(--gold);display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center">
-      <div>
-        <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:8px;font-family:'JetBrains Mono',monospace">The number your P&amp;L cares about</div>
-        <div style="font-family:'Fraunces',serif;font-size:28px;line-height:1.15;color:var(--cream);font-weight:500">Total file TAT: <span style="text-decoration:line-through;color:var(--cream-50);font-weight:400">~38 days</span> → <em style="color:var(--gold);font-style:italic;font-weight:600">~14 days</em></div>
-        <div style="margin-top:10px;color:var(--cream-70);font-size:13px">Measured on resi purchase · intake to policy · agency-controlled time only (county + servicer lag unchanged)</div>
+    <!-- Four giant numbers — Harvey pattern -->
+    <div class="bignums">
+      <div class="bignum">
+        <div class="bn-value">63<span class="bn-unit">%</span></div>
+        <div class="bn-label">Cycle time removed</div>
+        <div class="bn-sub">Total file TAT: 38 days → 14 days</div>
       </div>
-      <div style="text-align:right">
-        <div style="font-family:'Fraunces',serif;font-size:56px;line-height:1;color:var(--cream);font-weight:700">63%</div>
-        <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-50);margin-top:6px;font-family:'JetBrains Mono',monospace">Cycle time removed</div>
+      <div class="bignum">
+        <div class="bn-value">60→15<span class="bn-unit">min</span></div>
+        <div class="bn-label">Manual review per file</div>
+        <div class="bn-sub">HOA · commitment · lien · contract · settlement</div>
+      </div>
+      <div class="bignum">
+        <div class="bn-value">$240<span class="bn-unit"></span></div>
+        <div class="bn-label">Cost per file after Roam</div>
+        <div class="bn-sub">Industry avg: $720. Your delta signed by your controller.</div>
+      </div>
+      <div class="bignum">
+        <div class="bn-value">28<span class="bn-unit">%</span></div>
+        <div class="bn-label">Operating margin restored</div>
+        <div class="bn-sub">From ~8% industry average · same headcount</div>
       </div>
     </div>
 
-    <div class="grid">
-      <div class="ocard">
-        <div class="task">HOA + estoppel review</div>
-        <div class="ba">
-          <span class="before">18 min</span>
-          <span class="arrow">→</span>
-          <span class="after"><em>3 min</em></span>
+    <!-- Visual per-task breakdown — horizontal bars -->
+    <div class="taskbars">
+      <div class="tb-header">
+        <div class="tb-h-label">Per-task review time</div>
+        <div class="tb-legend">
+          <span class="tb-leg tb-leg-before">Before</span>
+          <span class="tb-leg tb-leg-after">With Roam</span>
         </div>
-        <div class="unit">per property, doc review + workbook populate</div>
-        <div class="delta">Saved <em>15 min</em> / property · <em>83%</em> faster</div>
       </div>
-      <div class="ocard">
-        <div class="task">Title commitment review</div>
-        <div class="ba">
-          <span class="before">15 min</span>
-          <span class="arrow">→</span>
-          <span class="after"><em>4 min</em></span>
+
+      <div class="tb-row">
+        <div class="tb-name">HOA &amp; estoppel review</div>
+        <div class="tb-bars">
+          <div class="tb-bar-wrap"><div class="tb-bar tb-before" style="--w:100%"><span>18 min</span></div></div>
+          <div class="tb-bar-wrap"><div class="tb-bar tb-after" style="--w:16%"><span>3 min</span></div></div>
         </div>
-        <div class="unit">per file, Schedule A/B-I/B-II populate</div>
-        <div class="delta">Saved <em>11 min</em> / file · <em>73%</em> faster</div>
+        <div class="tb-delta"><em>83%</em> faster</div>
       </div>
-      <div class="ocard">
-        <div class="task">Municipal lien search</div>
-        <div class="ba">
-          <span class="before">10 min</span>
-          <span class="arrow">→</span>
-          <span class="after"><em>2 min</em></span>
+
+      <div class="tb-row">
+        <div class="tb-name">Title commitment review</div>
+        <div class="tb-bars">
+          <div class="tb-bar-wrap"><div class="tb-bar tb-before" style="--w:83%"><span>15 min</span></div></div>
+          <div class="tb-bar-wrap"><div class="tb-bar tb-after" style="--w:22%"><span>4 min</span></div></div>
         </div>
-        <div class="unit">per property, review + workbook</div>
-        <div class="delta">Saved <em>8 min</em> / property · <em>80%</em> faster</div>
+        <div class="tb-delta"><em>73%</em> faster</div>
       </div>
-      <div class="ocard">
-        <div class="task">Purchase contract review</div>
-        <div class="ba">
-          <span class="before">10–15 min</span>
-          <span class="arrow">→</span>
-          <span class="after"><em>2–3 min</em></span>
+
+      <div class="tb-row">
+        <div class="tb-name">Municipal lien search</div>
+        <div class="tb-bars">
+          <div class="tb-bar-wrap"><div class="tb-bar tb-before" style="--w:55%"><span>10 min</span></div></div>
+          <div class="tb-bar-wrap"><div class="tb-bar tb-after" style="--w:11%"><span>2 min</span></div></div>
         </div>
-        <div class="unit">per file, extraction + exceptions flagged</div>
-        <div class="delta">Saved <em>~10 min</em> / file · <em>80%</em> faster</div>
+        <div class="tb-delta"><em>80%</em> faster</div>
       </div>
-      <div class="ocard">
-        <div class="task">Master settlement tracking</div>
-        <div class="ba">
-          <span class="before">15–20 min</span>
-          <span class="arrow">→</span>
-          <span class="after"><em>4–5 min</em></span>
+
+      <div class="tb-row">
+        <div class="tb-name">Purchase contract review</div>
+        <div class="tb-bars">
+          <div class="tb-bar-wrap"><div class="tb-bar tb-before" style="--w:72%"><span>10–15 min</span></div></div>
+          <div class="tb-bar-wrap"><div class="tb-bar tb-after" style="--w:14%"><span>2–3 min</span></div></div>
         </div>
-        <div class="unit">per file, cost tracking + reconciliation</div>
-        <div class="delta">Saved <em>~13 min</em> / file · <em>75%</em> faster</div>
+        <div class="tb-delta"><em>80%</em> faster</div>
       </div>
-      <div class="ocard">
-        <div class="task">Agency-side prelim cycle</div>
-        <div class="ba">
-          <span class="before">5–7 days</span>
-          <span class="arrow">→</span>
-          <span class="after"><em>&lt; 24 hr</em></span>
+
+      <div class="tb-row">
+        <div class="tb-name">Master settlement tracking</div>
+        <div class="tb-bars">
+          <div class="tb-bar-wrap"><div class="tb-bar tb-before" style="--w:95%"><span>15–20 min</span></div></div>
+          <div class="tb-bar-wrap"><div class="tb-bar tb-after" style="--w:25%"><span>4–5 min</span></div></div>
         </div>
-        <div class="unit">the time your team controls — search, exam, cure queue</div>
-        <div class="delta">Saved <em>~5 days</em> / file · county + servicer lag unchanged</div>
+        <div class="tb-delta"><em>75%</em> faster</div>
+      </div>
+
+      <div class="tb-row">
+        <div class="tb-name">Agency-side prelim cycle</div>
+        <div class="tb-bars">
+          <div class="tb-bar-wrap"><div class="tb-bar tb-before" style="--w:100%"><span>5–7 days</span></div></div>
+          <div class="tb-bar-wrap"><div class="tb-bar tb-after" style="--w:14%"><span>&lt; 24 hr</span></div></div>
+        </div>
+        <div class="tb-delta"><em>86%</em> faster</div>
       </div>
     </div>
 
     <div class="foot">
-      <div class="src">Benchmarks modeled from baseline task-timing audits across mid-market title &amp; escrow workflows (HOA, lien, commitment, contract, settlement). Every number re-baselined in your environment during week 0 of the pilot. We pay on what your controller measures — not on what we project.</div>
+      <div class="src">Benchmarks from time-and-motion audits across mid-market title &amp; escrow workflows. Every number re-baselined in your environment during week 0 of the pilot. We invoice on what your controller measures — not on what we project.</div>
       <a class="btn btn-gold" href="#calc">See your numbers <span class="arr">→</span></a>
     </div>
   </div>

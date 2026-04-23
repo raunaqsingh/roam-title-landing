@@ -497,6 +497,46 @@
   .lead-form-bg li:last-child{border-bottom:none}
   .lead-form-bg li strong{color:var(--cream);font-weight:500;display:block;margin-bottom:2px}
 
+  /* ===== TRANSFORMATION SECTION ===== */
+  .transform-sec{background:var(--bg-alt);padding:120px 0;border-top:1px solid var(--line-light);border-bottom:1px solid var(--line-light)}
+  .transform-sec h2{max-width:720px;margin-top:16px}
+  .transform-sec h2 em{font-style:italic;color:var(--accent);font-weight:500}
+  .transform-sec .lead{margin-top:16px;color:var(--ink-muted);font-family:'Fraunces',serif;font-style:italic;font-size:17px;max-width:720px}
+
+  .timeline-nav{margin-top:44px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--ink-25);padding-bottom:16px}
+  .t-btn{background:transparent;border:none;padding:10px 18px;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--ink-muted);cursor:pointer;border-radius:4px;transition:.15s ease;position:relative}
+  .t-btn::after{content:"";position:absolute;bottom:-17px;left:0;right:0;height:2px;background:transparent}
+  .t-btn.active{color:var(--ink);font-weight:600}
+  .t-btn.active::after{background:var(--accent)}
+  .t-btn:hover{color:var(--ink)}
+  .t-play{margin-left:auto;background:var(--ink);color:var(--bg);border:none;padding:9px 14px;font-size:12px;font-family:'Inter',sans-serif;font-weight:500;cursor:pointer;border-radius:3px}
+  .t-play:hover{background:var(--ink-2)}
+
+  .transform-panel{margin-top:32px;display:grid;grid-template-columns:1.1fr 1fr;gap:24px}
+  @media (max-width:900px){ .transform-panel{grid-template-columns:1fr} }
+
+  .t-left{background:var(--ink);color:var(--bg);padding:40px;border-radius:8px;min-height:480px;display:flex;flex-direction:column}
+  .t-headline{font-family:'Fraunces',serif;font-size:26px;line-height:1.2;color:var(--bg);font-weight:600;margin-bottom:28px;letter-spacing:-.01em;min-height:64px;transition:opacity .3s ease}
+  .t-kpis{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .t-kpi{padding:18px 20px;background:rgba(245,242,234,.04);border-left:2px solid var(--accent);transition:background .3s ease}
+  .t-kpi.changed{background:rgba(154,110,58,.15)}
+  .tk-label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--cream-50);font-family:'JetBrains Mono',monospace;margin-bottom:6px}
+  .tk-value{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--bg);line-height:1;letter-spacing:-.02em;transition:color .3s ease}
+
+  .t-right{background:#fff;padding:40px;border-top:3px solid var(--accent);min-height:480px;display:flex;flex-direction:column;gap:24px}
+  .t-section{padding-bottom:20px;border-bottom:1px solid var(--line-light)}
+  .t-section:last-child{border-bottom:none;padding-bottom:0}
+  .t-section-label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-2);font-weight:600;font-family:'JetBrains Mono',monospace;margin-bottom:10px}
+  .t-section-body{font-size:14px;color:var(--ink);line-height:1.55;transition:opacity .3s ease}
+  .t-section-body em{color:var(--accent-2);font-style:normal;font-weight:600}
+
+  .transform-outcome{margin-top:24px;padding:24px 32px;background:var(--ink);color:var(--bg);border-radius:6px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+  .transform-outcome .label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--cream-50);font-weight:600;font-family:'JetBrains Mono',monospace}
+  .t-cum{display:flex;gap:36px;flex-wrap:wrap}
+  .t-cum-item{display:flex;flex-direction:column;gap:4px}
+  .t-cum-item .k{font-size:11px;color:var(--cream-70);font-family:'JetBrains Mono',monospace;letter-spacing:.06em}
+  .t-cum-item .v{font-family:'Fraunces',serif;font-size:24px;color:var(--accent);font-weight:700;line-height:1}
+
   .lead-form{background:#fff;padding:40px;border-top:3px solid var(--gold)}
   .lead-form h3{font-size:24px;margin-bottom:6px}
   .lead-form .sub{font-size:13px;color:var(--ink-70);margin-bottom:26px}
@@ -553,7 +593,7 @@
     <a class="logo" href="#"><span>Roam</span><span class="slash">/</span><span style="font-style:italic;font-weight:500">title</span></a>
     <div class="nav-links">
       <a href="#demo">See it work</a>
-      <a href="#live">Outcomes</a>
+      <a href="#transform">12-month view</a>
       <a href="#who">Who it's for</a>
       <a href="#offer">Commercial terms</a>
       <a href="#vs">vs. alternatives</a>
@@ -792,6 +832,62 @@
         <button class="btn btn-term" id="playBtn">▶ Play full walkthrough</button>
         <button class="btn btn-term-ghost" id="nextBtn">Next stage →</button>
         <div class="demo-note">Sample data · file numbers, parties &amp; property are illustrative. Your pilot uses your live files under MNDA.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BUSINESS TRANSFORMATION — "Your agency in 12 months" ===== -->
+<section class="transform-sec" id="transform">
+  <div class="wrap">
+    <div class="kicker gold-bar">The transformation</div>
+    <h2>Your agency in 12 months. <em>Step through it.</em></h2>
+    <p class="lead">A mid-market title agency — 300 files a month, 12 examiners, 7 offices — before and after Roam. What the P&amp;L looks like, what your team is doing, what you wake up to on Monday.</p>
+
+    <div class="timeline-nav">
+      <button class="t-btn active" data-month="0">Month 0 · Today</button>
+      <button class="t-btn" data-month="1">Month 1 · Pilot start</button>
+      <button class="t-btn" data-month="3">Month 3</button>
+      <button class="t-btn" data-month="6">Month 6</button>
+      <button class="t-btn" data-month="12">Month 12</button>
+      <button class="t-play" id="tPlayBtn">▶ Auto-play</button>
+    </div>
+
+    <div class="transform-panel">
+      <div class="t-left">
+        <div class="t-headline" id="tHead">Today · your baseline</div>
+        <div class="t-kpis">
+          <div class="t-kpi"><div class="tk-label">Files closed / mo</div><div class="tk-value" id="tFiles">300</div></div>
+          <div class="t-kpi"><div class="tk-label">Cost per file</div><div class="tk-value" id="tCost">$720</div></div>
+          <div class="t-kpi"><div class="tk-label">Total file TAT</div><div class="tk-value" id="tTat">35 days</div></div>
+          <div class="t-kpi"><div class="tk-label">Operating margin</div><div class="tk-value" id="tMargin">8%</div></div>
+          <div class="t-kpi"><div class="tk-label">Examiners</div><div class="tk-value" id="tExam">12</div></div>
+          <div class="t-kpi"><div class="tk-label">Revenue run-rate</div><div class="tk-value" id="tRev">$9.7M</div></div>
+        </div>
+      </div>
+
+      <div class="t-right">
+        <div class="t-section">
+          <div class="t-section-label">What's live</div>
+          <div class="t-section-body" id="tLive">Nothing yet — just your current stack (SoftPro, NextAce, Qualia, spreadsheets, 1990s abstract software in your Tennessee office).</div>
+        </div>
+        <div class="t-section">
+          <div class="t-section-label">What your team is doing</div>
+          <div class="t-section-body" id="tTeam">Examiners typing commitments by hand. Closers chasing payoffs on the phone. Post-closers tracking e-records in spreadsheets. Saturday work is normal.</div>
+        </div>
+        <div class="t-section">
+          <div class="t-section-label">What you wake up to on Monday</div>
+          <div class="t-section-body" id="tOwner"><em>35 files behind.</em> Barbara (58, your senior examiner) has mentioned retirement three times this quarter. Your margin just ticked down another half-point.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="transform-outcome">
+      <div class="label">Cumulative vs baseline</div>
+      <div class="t-cum">
+        <div class="t-cum-item"><span class="k">Extra files closed</span><span class="v" id="tcFiles">—</span></div>
+        <div class="t-cum-item"><span class="k">Savings vs baseline</span><span class="v" id="tcSavings">—</span></div>
+        <div class="t-cum-item"><span class="k">Margin lift</span><span class="v" id="tcMargin">—</span></div>
       </div>
     </div>
   </div>
@@ -1357,6 +1453,18 @@
   </div>
 </section>
 
+<!-- ===== ACQUISITION CROSS-SELL — subtle, for owners closer to exit than expansion ===== -->
+<section style="background:var(--ink);color:var(--bg);padding:64px 0;border-top:1px solid var(--line-dark)">
+  <div class="wrap" style="display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center">
+    <div>
+      <div style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-weight:600;font-family:'JetBrains Mono',monospace;margin-bottom:14px">Closer to retirement than to expansion?</div>
+      <h3 style="font-family:'Fraunces',serif;font-size:28px;color:var(--bg);line-height:1.25;font-weight:600;letter-spacing:-.01em;max-width:720px">Some of our best pilots end in acquisition.</h3>
+      <p style="margin-top:12px;color:var(--cream-70);font-size:15px;line-height:1.55;max-width:720px">Roam acquires mid-market title agencies from owners ready for succession. <strong style="color:var(--bg);font-weight:500">Team kept. Brand kept. Underwriter relationships preserved.</strong> We pay against a post-AI margin profile because we know what it is — making our multiple competitive with Big 4 offers that fold your brand.</p>
+    </div>
+    <a class="btn btn-gold" href="#" onclick="openModal(event)" style="flex:0 0 auto">Explore a sale <span class="arr">→</span></a>
+  </div>
+</section>
+
 <!-- ===== FOOTER ===== -->
 <footer>
   <div class="wrap">
@@ -1698,6 +1806,109 @@
 
   // close modal on Escape
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+  // ===== BUSINESS TRANSFORMATION TIMELINE =====
+  const TRANSFORM = {
+    0: {
+      head: 'Today · your baseline',
+      kpi: { files:'300', cost:'$720', tat:'35 days', margin:'8%', exam:'12', rev:'$9.7M' },
+      live: 'Nothing yet — just your current stack (SoftPro, NextAce, Qualia, spreadsheets, 1990s abstract software in your Tennessee office).',
+      team: 'Examiners typing commitments by hand. Closers chasing payoffs on the phone. Post-closers tracking e-records in spreadsheets. Saturday work is normal.',
+      owner: '<em>35 files behind.</em> Barbara (58, your senior examiner) has mentioned retirement three times this quarter. Your margin just ticked down another half-point.',
+      cum: { files:'—', savings:'—', margin:'—' }
+    },
+    1: {
+      head: 'Month 1 · pilot baseline locked',
+      kpi: { files:'300', cost:'$720', tat:'35 days', margin:'8%', exam:'12', rev:'$9.7M' },
+      live: 'Single-page LOI signed. Week-0 baseline complete — Dave (your controller) signed the cost-per-file and TAT methodology. Wedge 01 (intake + prelim clearance) rolling out to Buckhead office first.',
+      team: 'Same as before in production. Your examiners are in training sessions — 4 hours total — learning to <em>review</em> agent-drafted work instead of producing it from scratch.',
+      owner: '$0 out of pocket. The 30-day kick-out clause is on your desk. You told the partners at ALTA you\'re "running a pilot." Nothing to announce yet.',
+      cum: { files:'0', savings:'$0', margin:'0 pts' }
+    },
+    3: {
+      head: 'Month 3 · wedges 01–02 live · <em>capacity unlocked</em>',
+      kpi: { files:'380', cost:'$555', tat:'26 days', margin:'14%', exam:'12', rev:'$11.5M' },
+      live: 'Wedge 01 (intake + prelim) and Wedge 02 (lender &amp; client comms) live across all 7 offices. Search + intake agents running 100% of new files. Commitment agent in shadow-mode review at Buckhead.',
+      team: 'Examiners reviewing agent drafts instead of typing from scratch — 6 minutes of review per commitment vs 45 typing. Your senior closer stopped working Saturdays. Barbara is still here.',
+      owner: '<em>8 files behind on Monday, not 35.</em> You\'re deciding whether to take the extra capacity (hire zero, grow files 30%) or take your team off weekend work. Dave signed off on the first savings invoice.',
+      cum: { files:'240', savings:'$148K', margin:'+6 pts' }
+    },
+    6: {
+      head: 'Month 6 · full stack · <em>margin restored</em>',
+      kpi: { files:'520', cost:'$380', tat:'18 days', margin:'22%', exam:'12', rev:'$15.8M' },
+      live: 'All 6 agents in production. All 4 wedges deployed. Curative and post-close automated. CertifID-verified wires on every file. Underwriter remit transmitting via MISMO to First American same-day.',
+      team: 'Examiners handling exceptions and judgment calls only. Closers doing pre-close review of agent-drafted CDs. Post-closers supervising the post-close agent rather than chasing e-records. No weekend work at any office.',
+      owner: 'You\'re evaluating <em>two neighboring agencies for M&amp;A</em> — the math finally works because integration cost collapsed. Barbara is teaching a junior who now supervises the curative agent. Your margin is where it was in 2021.',
+      cum: { files:'1,200', savings:'$820K', margin:'+14 pts' }
+    },
+    12: {
+      head: 'Month 12 · <em>a different business</em>',
+      kpi: { files:'620', cost:'$240', tat:'14 days', margin:'28%', exam:'12', rev:'$18.6M' },
+      live: 'All agents running across all offices. Commercial and 1031 flows added in Month 9. Holdback tracking automated. Quarterly compliance packet assembled by post-close agent. Audit took 2 days instead of 2 weeks.',
+      team: 'Same 12 examiners, closing 620 files a month instead of 300. Barbara retired — <em>not replaced linearly</em>. Junior examiner runs the curative agent. You hired 1 examiner for growth, not 4 to cover the ops gap.',
+      owner: 'You closed one tuck-in (3-office agency in Charleston). Margin at 28%. You\'re <em>the modernized title agency in your region</em> — the one referenced when FNF sends a new agent to your market.',
+      cum: { files:'3,000', savings:'$2.1M', margin:'+20 pts' }
+    }
+  };
+
+  const T_MONTHS = [0, 1, 3, 6, 12];
+  let tCurrent = 0;
+  let tPlayInterval = null;
+  let tPlaying = false;
+
+  function renderTransform(month, animate = true){
+    const s = TRANSFORM[month];
+    if (!s) return;
+    const map = { tHead:s.head, tFiles:s.kpi.files, tCost:s.kpi.cost, tTat:s.kpi.tat, tMargin:s.kpi.margin, tExam:s.kpi.exam, tRev:s.kpi.rev, tLive:s.live, tTeam:s.team, tOwner:s.owner, tcFiles:s.cum.files, tcSavings:s.cum.savings, tcMargin:s.cum.margin };
+    Object.entries(map).forEach(([id, val]) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (animate) {
+        el.style.opacity = '0';
+        setTimeout(() => { el.innerHTML = val; el.style.opacity = '1'; }, 180);
+      } else {
+        el.innerHTML = val;
+      }
+    });
+    // flash KPI cards that changed vs previous month
+    if (month !== 0 && animate){
+      document.querySelectorAll('.t-kpi').forEach(k => {
+        k.classList.add('changed');
+        setTimeout(() => k.classList.remove('changed'), 900);
+      });
+    }
+    // update active button
+    document.querySelectorAll('.t-btn').forEach(b => {
+      b.classList.toggle('active', parseInt(b.dataset.month, 10) === month);
+    });
+    tCurrent = month;
+  }
+
+  function tPlay(){
+    if (tPlaying) { tStop(); return; }
+    tPlaying = true;
+    document.getElementById('tPlayBtn').textContent = '■ Pause';
+    let idx = T_MONTHS.indexOf(tCurrent);
+    tPlayInterval = setInterval(() => {
+      idx = (idx + 1) % T_MONTHS.length;
+      renderTransform(T_MONTHS[idx]);
+      if (idx === T_MONTHS.length - 1) setTimeout(tStop, 3500);
+    }, 3500);
+  }
+  function tStop(){
+    tPlaying = false;
+    if (tPlayInterval) clearInterval(tPlayInterval);
+    tPlayInterval = null;
+    const btn = document.getElementById('tPlayBtn');
+    if (btn) btn.textContent = '▶ Auto-play';
+  }
+
+  if (document.getElementById('tHead')){
+    document.querySelectorAll('.t-btn').forEach(btn => {
+      btn.addEventListener('click', () => { tStop(); renderTransform(parseInt(btn.dataset.month, 10)); });
+    });
+    document.getElementById('tPlayBtn').addEventListener('click', tPlay);
+  }
 
   // ===== HERO SPOTLIGHT ROTATOR (sample data · illustrative) =====
   const HERO_ACTIONS = [
